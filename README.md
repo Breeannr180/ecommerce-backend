@@ -9,7 +9,7 @@ A back-end for an ecommerce website using the latest technologies to get, post, 
 If your README is long, add a table of contents to make it easy for users to find what they need.
 
 - [Installation](#installation)
-- [Usage] (#usage)
+- [Usage](#usage)
 - [Technologies](#Technologies)
 - [Questions](#Questions)
 
@@ -44,12 +44,12 @@ We’ll take a working Express.js API and configure it to use Sequelize to inter
 Watch video here https://watch.screencastify.com/v/wGK0M93MVhj0y0onmxqc
 
 
-![alt text](/Images/Get%20Categories.png)
-[!alt text](/Images/Get%20Products.png)
-[!alt text](/Images/Get%20tags.png)
-[!alt text](/Images/Post%20categories.png)
-[!alt text](/Images/Put%20indv%20category.png)
-[!alt text](/Images/Delete%20indv%20category.png)
+![Get Categories](/Images/Get%20Categories.png)
+![Get Products](/Images/Get%20Products.png)
+![Get Tags](/Images/Get%20tags.png)
+![Post Categories](/Images/Post%20categories.png)
+![Put Categories](/Images/Put%20indv%20category.png)
+![Delete category](/Images/Delete%20indv%20category.png)
 
 ## Technologies
 
