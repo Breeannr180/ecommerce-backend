@@ -63,33 +63,44 @@ router.get('/:id', (req, res) => {
 
 // create new product
 router.post('/', (req, res) => {
-  Product.create({
-  product_name: req.body.product_name,
-  price: req.body.price,
-  stock: req.body.stock,
-  category_id: req.body.category_id,
-  tagIds: req.body.tagIds
-  })
-    .then((product) => {
-      // if there's product tags, we need to create pairings to bulk create in the ProductTag model
-      if (req.body.tagIds.length) {
-        const productTagIdArr = req.body.tagIds.map((tag_id) => {
-          return {
-            product_id: product.id,
-            tag_id,
-          };
-        });
-        return ProductTag.bulkCreate(productTagIdArr);
-      }
-      // if no product tags, just respond
-      res.status(200).json(product);
+  try {
+    const productData = req.body;
+    Product.create({
+      product_name: productData.product_name,
+      price: productData.price,
+      stock: productData.stock,
+      category_id: productData.category_id,
+      tagIds: productData.tagIds
     })
-    .then((productTagIds) => res.status(200).json(productTagIds))
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json(err);
-    });
+      .then((product) => {
+        // if there are product tags, create pairings in the ProductTag model
+        if (productData.tagIds && productData.tagIds.length) {
+          const productTagIdArr = productData.tagIds.map((tag_id) => {
+            return {
+              product_id: product.id,
+              tag_id,
+            };
+          });
+          return ProductTag.bulkCreate(productTagIdArr);
+        }
+        // if no product tags, just respond with the created product
+        res.status(200).json(product);
+      })
+      .then((productTagIds) => {
+        if (productTagIds) {
+          res.status(200).json(productTagIds);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json(err);
+      });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 });
+
 
 // update product
 router.put('/:id', (req, res) => {
